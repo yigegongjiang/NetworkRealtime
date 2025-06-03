@@ -15,9 +15,21 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    start()
+    _restart()
+    
+    // 添加应用程序进入前台的通知观察
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(applicationDidBecomeActive),
+      name: UIApplication.didBecomeActiveNotification,
+      object: nil
+    )
   }
-
+  
+  @objc func applicationDidBecomeActive() {
+    _restart()
+  }
+  
   func start() {
     LiveActivityManager.shared.startLiveActivity()
 
@@ -44,6 +56,10 @@ class ViewController: UIViewController {
 
   @IBAction
   func restart(_ sender: Any) {
+    _restart()
+  }
+  
+  func _restart() {
     stop()
     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
       self.start()
@@ -52,5 +68,6 @@ class ViewController: UIViewController {
 
   deinit {
     stop()
+    NotificationCenter.default.removeObserver(self)
   }
 }
