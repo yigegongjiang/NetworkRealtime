@@ -12,6 +12,11 @@ final class PiPSpeedController: NSObject {
   private let renderer = SpeedFrameRenderer(preset: .current)
   private var controller: AVPictureInPictureController?
   private var possibleObservation: NSKeyValueObservation?
+  private var statusObservation: NSKeyValueObservation?
+
+  // 缓存最近一次文本; 自愈时 (flush 后) 用它重推一帧, 否则浮窗仍是空的.
+  private var lastUText = "0b"
+  private var lastDText = "0b"
 
   override private init() { super.init() }
 
@@ -32,6 +37,8 @@ final class PiPSpeedController: NSObject {
     let pip = AVPictureInPictureController(contentSource: source)
     pip.delegate = self
     controller = pip
+
+    installRecoveryHooks()
 
     // PiP 启动前需 layer 已有帧, 否则 isPictureInPicturePossible 一直为 false.
     update(uText: "0b", dText: "0b")
@@ -60,7 +67,14 @@ final class PiPSpeedController: NSObject {
   }
 
   func update(uText: String, dText: String) {
+    lastUText = uText
+    lastDText = dText
     guard let buffer = renderer.render(uText: uText, dText: dText) else { return }
+    // 锁屏 / GPU 资源回收会让 layer 进 .failed, 后续 enqueue 全部静默丢弃;
+    // 必须先 flush 才能继续 enqueue (参见 WebKit Bug 181623 同模式).
+    if displayLayer.status == .failed {
+      displayLayer.flush()
+    }
     displayLayer.enqueue(buffer)
   }
 
@@ -69,6 +83,54 @@ final class PiPSpeedController: NSObject {
     SpeedPreset.current = preset
     renderer.preset = preset
     update(uText: "0b", dText: "0b")
+  }
+
+  // MARK: - Recovery
+
+  // 三处恢复入口都汇入 recoverIfNeeded:
+  // 1. KVO status -> .failed (主路径, 系统状态变更立即触发)
+  // 2. failedToDecodeNotification (decode 链路次级通道)
+  // 3. UIApplication.didBecomeActive (主动兜底, 即便前两者未触发也能恢复)
+  private func installRecoveryHooks() {
+    statusObservation = displayLayer.observe(
+      \.status,
+      options: [.new]
+    ) { [weak self] layer, _ in
+      guard layer.status == .failed else { return }
+      self?.recoverIfNeeded(reason: "kvo")
+    }
+
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(handleFailedToDecode),
+      name: .AVSampleBufferDisplayLayerFailedToDecode,
+      object: displayLayer
+    )
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(handleDidBecomeActive),
+      name: UIApplication.didBecomeActiveNotification,
+      object: nil
+    )
+  }
+
+  @objc private func handleFailedToDecode() {
+    recoverIfNeeded(reason: "decode-failed")
+  }
+
+  @objc private func handleDidBecomeActive() {
+    recoverIfNeeded(reason: "did-become-active")
+  }
+
+  // 唯一恢复路径: 仅在 status == .failed 时介入, 复用 update() 内的 flush + enqueue 逻辑,
+  // 避免重复实现. 强制 main 线程, 因 KVO/通知回调线程不确定.
+  private func recoverIfNeeded(reason: String) {
+    DispatchQueue.main.async { [weak self] in
+      guard let self else { return }
+      guard self.displayLayer.status == .failed else { return }
+      log.warning("PiP layer recover: \(reason)")
+      self.update(uText: self.lastUText, dText: self.lastDText)
+    }
   }
 }
 
