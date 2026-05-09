@@ -1,5 +1,4 @@
 import Foundation
-import Network
 import Darwin
 
 class NetworkSpeedMonitor {
@@ -29,6 +28,8 @@ class NetworkSpeedMonitor {
 
   private let locationManager = LocationManager.shared
 
+  private(set) var isMonitoring = false
+
   private let validInterfaceTypes = ["en", "pdp_ip", "rmnet", "ppp", "wwan"]
 
   // MARK: - Initialization
@@ -40,6 +41,8 @@ class NetworkSpeedMonitor {
   // MARK: - Public Methods
 
   func startMonitoring(updateInterval: TimeInterval = 1.0, handler: @escaping (NetworkStats) -> Void) {
+    guard !isMonitoring else { return }
+
     self.updateHandler = handler
     locationManager.startUpdatingLocation()
 
@@ -52,11 +55,13 @@ class NetworkSpeedMonitor {
     }
     timer.resume()
     self.timer = timer
+    isMonitoring = true
   }
 
   func stopMonitoring() {
     timer?.cancel()
     timer = nil
+    isMonitoring = false
     locationManager.stopUpdatingLocation()
   }
 
@@ -68,7 +73,7 @@ class NetworkSpeedMonitor {
       return NetworkSpeed(value: Double(Int(bytesPerSecond)), unit: "b")
     case 1024..<(1024 * 1024): // < 1MB/s
       return NetworkSpeed(value: Double(Int(bytesPerSecond / 1024)), unit: "k")
-    case (1024 * 1024)..<(1024 * 1024 * 1024): // < 1GB/s
+    case (1024 * 1024)...: // >= 1MB/s
       return NetworkSpeed(value: Double(String(format: "%.1f", bytesPerSecond / 1024 / 1024))!, unit: "m")
     default:
       return nil

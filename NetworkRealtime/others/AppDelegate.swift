@@ -6,19 +6,27 @@
 //
 
 import UIKit
+import AVFoundation
 import LoggingSyslog
 import Logging
-import ActivityKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
-
     LoggingSystem.bootstrap(SyslogLogHandler.init)
-
+    configureAudioSessionForPiP()
     return true
+  }
+
+  // PiP requires an active .playback audio session; no audio is actually produced.
+  private func configureAudioSessionForPiP() {
+    do {
+      try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
+      try AVAudioSession.sharedInstance().setActive(true)
+    } catch {
+      log.error("AudioSession setup failed: \(error.localizedDescription)")
+    }
   }
 
   // MARK: UISceneSession Lifecycle
@@ -42,6 +50,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func applicationWillTerminate(_ application: UIApplication) {
     NetworkSpeedMonitor.shared.stopMonitoring()
-    LiveActivityManager.shared.detroy()
   }
 }

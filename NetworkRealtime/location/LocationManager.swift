@@ -20,13 +20,18 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     locationManager.distanceFilter = kCLDistanceFilterNone
   }
 
+  private(set) var isUpdating = false
+
   func startUpdatingLocation() {
+    guard !isUpdating else { return }
     locationManager.requestAlwaysAuthorization()
     locationManager.startUpdatingLocation()
+    isUpdating = true
   }
 
   func stopUpdatingLocation() {
     locationManager.stopUpdatingLocation()
+    isUpdating = false
   }
 
   // MARK: - CLLocationManagerDelegate

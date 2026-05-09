@@ -9,20 +9,7 @@
 /* Begin PBXBuildFile section */
 		F3B09F762D36A651005671C3 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = F3B09F752D36A651005671C3 /* Logging */; };
 		F3B09F892D36A783005671C3 /* LoggingSyslog in Frameworks */ = {isa = PBXBuildFile; productRef = F3B09F882D36A783005671C3 /* LoggingSyslog */; };
-		F3F790A42D3665AA0095CE82 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F790A32D3665AA0095CE82 /* WidgetKit.framework */; };
-		F3F790A62D3665AA0095CE82 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F790A52D3665AA0095CE82 /* SwiftUI.framework */; };
-		F3F790B32D3665AB0095CE82 /* LiveActivityWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F3F790A12D3665AA0095CE82 /* LiveActivityWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		F3F790B12D3665AB0095CE82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F3F7907D2D3663D00095CE82 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F3F790A02D3665AA0095CE82;
-			remoteInfo = LiveActivityWidgetExtension;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		F3F790B82D3665AB0095CE82 /* Embed Foundation Extensions */ = {
@@ -31,7 +18,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F3F790B32D3665AB0095CE82 /* LiveActivityWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -40,7 +26,6 @@
 
 /* Begin PBXFileReference section */
 		F3F790852D3663D00095CE82 /* NetworkRealtime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkRealtime.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3F790A12D3665AA0095CE82 /* LiveActivityWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LiveActivityWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3F790A32D3665AA0095CE82 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F3F790A52D3665AA0095CE82 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -53,20 +38,6 @@
 			);
 			target = F3F790842D3663D00095CE82 /* NetworkRealtime */;
 		};
-		F3F790B72D3665AB0095CE82 /* Exceptions for "LiveActivityWidget" folder in "LiveActivityWidgetExtension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = F3F790A02D3665AA0095CE82 /* LiveActivityWidgetExtension */;
-		};
-		F3F790C02D366C2B0095CE82 /* Exceptions for "NetworkRealtime" folder in "LiveActivityWidgetExtension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				live/shared/LiveActivityWidgetAttributes.swift,
-			);
-			target = F3F790A02D3665AA0095CE82 /* LiveActivityWidgetExtension */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -74,17 +45,8 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				F3F790972D3663D10095CE82 /* Exceptions for "NetworkRealtime" folder in "NetworkRealtime" target */,
-				F3F790C02D366C2B0095CE82 /* Exceptions for "NetworkRealtime" folder in "LiveActivityWidgetExtension" target */,
 			);
 			path = NetworkRealtime;
-			sourceTree = "<group>";
-		};
-		F3F790A72D3665AA0095CE82 /* LiveActivityWidget */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				F3F790B72D3665AB0095CE82 /* Exceptions for "LiveActivityWidget" folder in "LiveActivityWidgetExtension" target */,
-			);
-			path = LiveActivityWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -99,15 +61,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F3F7909E2D3665AA0095CE82 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F3F790A62D3665AA0095CE82 /* SwiftUI.framework in Frameworks */,
-				F3F790A42D3665AA0095CE82 /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -115,7 +68,6 @@
 			isa = PBXGroup;
 			children = (
 				F3F790872D3663D00095CE82 /* NetworkRealtime */,
-				F3F790A72D3665AA0095CE82 /* LiveActivityWidget */,
 				F3F790A22D3665AA0095CE82 /* Frameworks */,
 				F3F790862D3663D00095CE82 /* Products */,
 			);
@@ -125,7 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				F3F790852D3663D00095CE82 /* NetworkRealtime.app */,
-				F3F790A12D3665AA0095CE82 /* LiveActivityWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,7 +105,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				F3F790B22D3665AB0095CE82 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				F3F790872D3663D00095CE82 /* NetworkRealtime */,
@@ -168,28 +118,6 @@
 			productReference = F3F790852D3663D00095CE82 /* NetworkRealtime.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F3F790A02D3665AA0095CE82 /* LiveActivityWidgetExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F3F790B42D3665AB0095CE82 /* Build configuration list for PBXNativeTarget "LiveActivityWidgetExtension" */;
-			buildPhases = (
-				F3F7909D2D3665AA0095CE82 /* Sources */,
-				F3F7909E2D3665AA0095CE82 /* Frameworks */,
-				F3F7909F2D3665AA0095CE82 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				F3F790A72D3665AA0095CE82 /* LiveActivityWidget */,
-			);
-			name = LiveActivityWidgetExtension;
-			packageProductDependencies = (
-			);
-			productName = LiveActivityWidgetExtension;
-			productReference = F3F790A12D3665AA0095CE82 /* LiveActivityWidgetExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -201,9 +129,6 @@
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					F3F790842D3663D00095CE82 = {
-						CreatedOnToolsVersion = 16.2;
-					};
-					F3F790A02D3665AA0095CE82 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -227,20 +152,12 @@
 			projectRoot = "";
 			targets = (
 				F3F790842D3663D00095CE82 /* NetworkRealtime */,
-				F3F790A02D3665AA0095CE82 /* LiveActivityWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F3F790832D3663D00095CE82 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F3F7909F2D3665AA0095CE82 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -257,22 +174,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F3F7909D2D3665AA0095CE82 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F3F790B22D3665AB0095CE82 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F3F790A02D3665AA0095CE82 /* LiveActivityWidgetExtension */;
-			targetProxy = F3F790B12D3665AB0095CE82 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		F3F790992D3663D10095CE82 /* Debug */ = {
@@ -288,7 +190,6 @@
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "需要访问网络以监控网络速度";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "需要后台定位权限来保持网速监测功能";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要定位权限来监测网速";
-				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -324,7 +225,6 @@
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "需要访问网络以监控网络速度";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "需要后台定位权限来保持网速监测功能";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要定位权限来监测网速";
-				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -466,72 +366,6 @@
 			};
 			name = Release;
 		};
-		F3F790B52D3665AB0095CE82 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ZG3FDF8RBQ;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = LiveActivityWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = LiveActivityWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.NetworkRealtime.LiveActivityWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		F3F790B62D3665AB0095CE82 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ZG3FDF8RBQ;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = LiveActivityWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = LiveActivityWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.NetworkRealtime.LiveActivityWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -549,15 +383,6 @@
 			buildConfigurations = (
 				F3F790992D3663D10095CE82 /* Debug */,
 				F3F7909A2D3663D10095CE82 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F3F790B42D3665AB0095CE82 /* Build configuration list for PBXNativeTarget "LiveActivityWidgetExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F3F790B52D3665AB0095CE82 /* Debug */,
-				F3F790B62D3665AB0095CE82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
