@@ -69,6 +69,10 @@ final class PiPSpeedController: NSObject {
   func update(uText: String, dText: String) {
     lastUText = uText
     lastDText = dText
+    // Widget / 控制中心 跨进程改 SpeedPreset.current 后, 主 App 内 renderer.preset 还是旧值;
+    // 每秒回调时比对一次, 不一致即同步, 实现自然 reflow, 无需 Darwin notification.
+    let cur = SpeedPreset.current
+    if renderer.preset != cur { renderer.preset = cur }
     let segments = ["↑\(uText)", "↓\(dText)"] + CustomSegmentsStore.shared.segments
     guard let buffer = renderer.render(segments: segments) else { return }
     // 锁屏 / GPU 资源回收会让 layer 进 .failed, 后续 enqueue 全部静默丢弃;
@@ -85,8 +89,9 @@ final class PiPSpeedController: NSObject {
   }
 
   // 切换字号: 持久化 + 改 renderer + 立即推一帧让浮窗按新比例 reflow.
+  // switchTo 在写 current 前把旧 current 存到 previous, 控制中心 toggle 才有"上一档"可切回.
   func setPreset(_ preset: SpeedPreset) {
-    SpeedPreset.current = preset
+    SpeedPreset.switchTo(preset)
     renderer.preset = preset
     refresh()
   }

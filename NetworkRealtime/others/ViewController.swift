@@ -15,6 +15,9 @@ class ViewController: UIViewController {
   @IBOutlet
   weak var customField: UITextField!
 
+  // segment 在 didBecomeActive 反查 SpeedPreset.current, 让 widget / 控制中心改档后回 App 也能看到.
+  private var presetControl: UISegmentedControl?
+
   override func viewDidLoad() {
     super.viewDidLoad()
     configureLayout()
@@ -45,6 +48,32 @@ class ViewController: UIViewController {
 
   @objc func applicationDidBecomeActive() {
     start()
+    consumePendingPiPAction()
+    syncPresetSelection()
+  }
+
+  // widget / 控制中心改档后回到 App, 让 segment 跟上 current.
+  // segment 不需要触发 valueChanged, 直接改 selectedSegmentIndex 即可 (renderer 已被外部源更新).
+  private func syncPresetSelection() {
+    guard let presetControl else { return }
+    if let idx = SpeedPreset.allCases.firstIndex(of: .current) {
+      presetControl.selectedSegmentIndex = idx
+    }
+  }
+
+  // 消费 widget 通过 App Group 留下的 PiP 指令 (start / stop). widget extension 进程
+  // 不能直接调 PiPSpeedController, 走 openAppWhenRun + 标记 + 主 App 消费这条路.
+  private func consumePendingPiPAction() {
+    guard let action = AppGroup.defaults.string(forKey: PiPPendingAction.key) else { return }
+    AppGroup.defaults.removeObject(forKey: PiPPendingAction.key)
+    switch action {
+    case PiPPendingAction.start:
+      PiPSpeedController.shared.start()
+    case PiPPendingAction.stop:
+      PiPSpeedController.shared.stop()
+    default:
+      break
+    }
   }
 
   func start() {
@@ -80,6 +109,7 @@ class ViewController: UIViewController {
     customRow.alignment = .center
 
     let presetControl = makePresetControl()
+    self.presetControl = presetControl
     let sizeRow = UIStackView(arrangedSubviews: [makeSectionLabel("size"), presetControl])
     sizeRow.axis = .horizontal
     sizeRow.spacing = 12
@@ -92,7 +122,7 @@ class ViewController: UIViewController {
     buttonRow.spacing = 16
     buttonRow.distribution = .fillEqually
 
-    // 全部控件聚拢底部, 顶部自适应留白; 自上而下: 网速 -> 输入框 -> 字号 -> Start/Stop.
+    // 控件整体上下居中, 顶部 / 底部都自适应留白; 自上而下: 网速 -> 输入框 -> 字号 -> Start/Stop.
     let mainStack = UIStackView(arrangedSubviews: [shows, customRow, sizeRow, buttonRow])
     mainStack.axis = .vertical
     mainStack.spacing = 16
@@ -103,7 +133,7 @@ class ViewController: UIViewController {
     NSLayoutConstraint.activate([
       mainStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24),
       mainStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
-      mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24)
+      mainStack.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
     ])
   }
 
@@ -117,7 +147,8 @@ class ViewController: UIViewController {
   }
 
   private func makePresetControl() -> UISegmentedControl {
-    let titles = SpeedPreset.allCases.map { String($0.rawValue) }
+    // 罗马 I..VI, 与桌面 widget 视觉保持一致, 不暴露 fontSize 物理值 (4..9).
+    let titles = SpeedPreset.allCases.map { $0.displayLabel }
     let control = UISegmentedControl(items: titles)
     control.selectedSegmentIndex = SpeedPreset.allCases.firstIndex(of: .current) ?? 0
     control.addTarget(self, action: #selector(presetChanged(_:)), for: .valueChanged)

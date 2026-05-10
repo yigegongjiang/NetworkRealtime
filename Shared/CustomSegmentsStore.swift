@@ -8,8 +8,8 @@ final class CustomSegmentsStore {
   private init() {}
 
   var raw: String {
-    get { UserDefaults.standard.string(forKey: Self.storageKey) ?? "" }
-    set { UserDefaults.standard.set(newValue, forKey: Self.storageKey) }
+    get { AppGroup.defaults.string(forKey: Self.storageKey) ?? "" }
+    set { AppGroup.defaults.set(newValue, forKey: Self.storageKey) }
   }
 
   var segments: [String] {

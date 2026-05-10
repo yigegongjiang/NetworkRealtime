@@ -9,7 +9,26 @@
 /* Begin PBXBuildFile section */
 		F3B09F762D36A651005671C3 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = F3B09F752D36A651005671C3 /* Logging */; };
 		F3B09F892D36A783005671C3 /* LoggingSyslog in Frameworks */ = {isa = PBXBuildFile; productRef = F3B09F882D36A783005671C3 /* LoggingSyslog */; };
+		F3CAFE0000000000000000B0 /* NetworkRealtimeWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000A1 /* NetworkRealtimeWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F3CAFE0000000000000000C3 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000C0 /* AppGroup.swift */; };
+		F3CAFE0000000000000000C4 /* SpeedPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000C1 /* SpeedPreset.swift */; };
+		F3CAFE0000000000000000C5 /* CustomSegmentsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000C2 /* CustomSegmentsStore.swift */; };
+		F3CAFE0000000000000000C7 /* AppLaunchIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000C6 /* AppLaunchIntents.swift */; };
+		F3CAFE0000000000000000D0 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000C0 /* AppGroup.swift */; };
+		F3CAFE0000000000000000D1 /* SpeedPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000C1 /* SpeedPreset.swift */; };
+		F3CAFE0000000000000000D2 /* CustomSegmentsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000C2 /* CustomSegmentsStore.swift */; };
+		F3CAFE0000000000000000D3 /* AppLaunchIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000C6 /* AppLaunchIntents.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F3CAFE0000000000000000B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3F7907D2D3663D00095CE82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F3CAFE0000000000000000A0;
+			remoteInfo = NetworkRealtimeWidgets;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		F3F790B82D3665AB0095CE82 /* Embed Foundation Extensions */ = {
@@ -18,6 +37,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				F3CAFE0000000000000000B0 /* NetworkRealtimeWidgets.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -25,12 +45,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F3CAFE0000000000000000A1 /* NetworkRealtimeWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NetworkRealtimeWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3CAFE0000000000000000C0 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		F3CAFE0000000000000000C1 /* SpeedPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedPreset.swift; sourceTree = "<group>"; };
+		F3CAFE0000000000000000C2 /* CustomSegmentsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentsStore.swift; sourceTree = "<group>"; };
+		F3CAFE0000000000000000C6 /* AppLaunchIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLaunchIntents.swift; sourceTree = "<group>"; };
 		F3F790852D3663D00095CE82 /* NetworkRealtime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkRealtime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3F790A32D3665AA0095CE82 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F3F790A52D3665AA0095CE82 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F3CAFE0000000000000000A9 /* Exceptions for "NetworkRealtimeWidgets" folder in "NetworkRealtimeWidgets" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F3CAFE0000000000000000A0 /* NetworkRealtimeWidgets */;
+		};
 		F3F790972D3663D10095CE82 /* Exceptions for "NetworkRealtime" folder in "NetworkRealtime" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -41,6 +73,14 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		F3CAFE0000000000000000A8 /* NetworkRealtimeWidgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F3CAFE0000000000000000A9 /* Exceptions for "NetworkRealtimeWidgets" folder in "NetworkRealtimeWidgets" target */,
+			);
+			path = NetworkRealtimeWidgets;
+			sourceTree = "<group>";
+		};
 		F3F790872D3663D00095CE82 /* NetworkRealtime */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -52,6 +92,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F3CAFE0000000000000000A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F3F790822D3663D00095CE82 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -64,10 +111,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F3CAFE0000000000000000E0 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F3CAFE0000000000000000C0 /* AppGroup.swift */,
+				F3CAFE0000000000000000C1 /* SpeedPreset.swift */,
+				F3CAFE0000000000000000C2 /* CustomSegmentsStore.swift */,
+				F3CAFE0000000000000000C6 /* AppLaunchIntents.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		F3F7907C2D3663D00095CE82 = {
 			isa = PBXGroup;
 			children = (
+				F3CAFE0000000000000000E0 /* Shared */,
 				F3F790872D3663D00095CE82 /* NetworkRealtime */,
+				F3CAFE0000000000000000A8 /* NetworkRealtimeWidgets */,
 				F3F790A22D3665AA0095CE82 /* Frameworks */,
 				F3F790862D3663D00095CE82 /* Products */,
 			);
@@ -77,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				F3F790852D3663D00095CE82 /* NetworkRealtime.app */,
+				F3CAFE0000000000000000A1 /* NetworkRealtimeWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,6 +154,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F3CAFE0000000000000000A0 /* NetworkRealtimeWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3CAFE0000000000000000A5 /* Build configuration list for PBXNativeTarget "NetworkRealtimeWidgets" */;
+			buildPhases = (
+				F3CAFE0000000000000000A2 /* Sources */,
+				F3CAFE0000000000000000A3 /* Frameworks */,
+				F3CAFE0000000000000000A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F3CAFE0000000000000000A8 /* NetworkRealtimeWidgets */,
+			);
+			name = NetworkRealtimeWidgets;
+			packageProductDependencies = (
+			);
+			productName = NetworkRealtimeWidgets;
+			productReference = F3CAFE0000000000000000A1 /* NetworkRealtimeWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		F3F790842D3663D00095CE82 /* NetworkRealtime */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F3F790982D3663D10095CE82 /* Build configuration list for PBXNativeTarget "NetworkRealtime" */;
@@ -105,6 +188,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F3CAFE0000000000000000B1 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				F3F790872D3663D00095CE82 /* NetworkRealtime */,
@@ -128,6 +212,9 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					F3CAFE0000000000000000A0 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					F3F790842D3663D00095CE82 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -152,11 +239,19 @@
 			projectRoot = "";
 			targets = (
 				F3F790842D3663D00095CE82 /* NetworkRealtime */,
+				F3CAFE0000000000000000A0 /* NetworkRealtimeWidgets */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F3CAFE0000000000000000A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F3F790832D3663D00095CE82 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -167,21 +262,99 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F3CAFE0000000000000000A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3CAFE0000000000000000C3 /* AppGroup.swift in Sources */,
+				F3CAFE0000000000000000C4 /* SpeedPreset.swift in Sources */,
+				F3CAFE0000000000000000C5 /* CustomSegmentsStore.swift in Sources */,
+				F3CAFE0000000000000000C7 /* AppLaunchIntents.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F3F790812D3663D00095CE82 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3CAFE0000000000000000D0 /* AppGroup.swift in Sources */,
+				F3CAFE0000000000000000D1 /* SpeedPreset.swift in Sources */,
+				F3CAFE0000000000000000D2 /* CustomSegmentsStore.swift in Sources */,
+				F3CAFE0000000000000000D3 /* AppLaunchIntents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		F3CAFE0000000000000000B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F3CAFE0000000000000000A0 /* NetworkRealtimeWidgets */;
+			targetProxy = F3CAFE0000000000000000B2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		F3CAFE0000000000000000A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = NetworkRealtimeWidgets/NetworkRealtimeWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZG3FDF8RBQ;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NetworkRealtimeWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.4.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.NetworkRealtime.Widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F3CAFE0000000000000000A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = NetworkRealtimeWidgets/NetworkRealtimeWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZG3FDF8RBQ;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NetworkRealtimeWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.4.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.NetworkRealtime.Widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		F3F790992D3663D10095CE82 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NetworkRealtime/NetworkRealtime.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZG3FDF8RBQ;
@@ -199,7 +372,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.NetworkRealtime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -217,6 +390,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NetworkRealtime/NetworkRealtime.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZG3FDF8RBQ;
@@ -234,7 +408,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.NetworkRealtime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -369,6 +543,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F3CAFE0000000000000000A5 /* Build configuration list for PBXNativeTarget "NetworkRealtimeWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3CAFE0000000000000000A6 /* Debug */,
+				F3CAFE0000000000000000A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F3F790802D3663D00095CE82 /* Build configuration list for PBXProject "NetworkRealtime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

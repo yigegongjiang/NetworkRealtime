@@ -2,6 +2,24 @@
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), 版本号遵循 [SemVer](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-05-10
+
+### Added
+
+- 新 Widget Extension `NetworkRealtimeWidgets` (systemSmall 2x2): 6 档字号按钮 (罗马 I-VI) + 4 动作按钮 (Start / Stop PiP, toggle 最近两档, 打开 App)
+- App Group `group.jp.elestyle.NetworkRealtime` 共享 `SpeedPreset` / `CustomSegments` (主 App ↔ Widget)
+- `Shared/` 目录承载双 target 共用文件: `AppGroup`, `AppLaunchIntents`, `SpeedPreset`, `CustomSegmentsStore`
+- `SpeedPreset.previous` / `switchTo` / `broadcastChange`: 维护"上一档"快照供 widget toggle, 任意改档统一 reload timeline
+
+### Changed
+
+- 主 App segment 标签由 `4..9` 改为罗马 `I..VI`, 与 widget 视觉一致, 不暴露物理 fontSize
+- 主页布局由贴底部 safeArea 改为上下居中, 顶/底自适应留白
+- `PiPSpeedController.update` 每秒比对 `SpeedPreset.current`, 检测到跨进程改档自动同步 `renderer.preset`, 不依赖 Darwin notification
+- `applicationDidBecomeActive` 消费 widget 通过 App Group 留下的 PiP 指令 (start / stop), 并把 segment 选中同步到 `current`
+- `SpeedPreset` / `CustomSegmentsStore` 存储后端从 `UserDefaults.standard` 迁到 `AppGroup.defaults`
+- `OpenAppIntent` / `StartPiPIntent` / `StopPiPIntent` 双 target 编译: 主 App 进程也需 AppIntent metadata, 否则 widget tap 拉起主 App 后 perform 不会被 dispatch
+
 ## [0.3.0] - 2026-05-10
 
 ### Added
