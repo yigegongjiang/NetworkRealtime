@@ -2,7 +2,7 @@ import WidgetKit
 import SwiftUI
 
 @main
-struct NetworkRealtimeWidgetsBundle: WidgetBundle {
+struct SpeedoWidgetsBundle: WidgetBundle {
   @WidgetBundleBuilder
   var body: some Widget {
     SizeWidget()

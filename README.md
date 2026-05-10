@@ -1,26 +1,10 @@
-# NetworkRealtime
+# Speedo
 
-This project adds a feature to view the real-time network speed on iPhone devices with Dynamic Island.
+iOS 工具，在画中画（Picture-in-Picture）浮窗中实时显示网络上传/下载速度。
 
-## Features
+![Example](example.png)
 
-- Display real-time network speed on the Dynamic Island.
-- Lightweight and efficient.
+## Notes
 
-## Example
-
-Below is an example of the feature in action:
-
-![Example](example.gif)
-
-## Installation
-
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/yigegongjiang/NetworkRealtime.git
-    ```
-2. Navigate to the project directory:
-    ```sh
-    cd NetworkRealtime
-    ```
-3. Open the project in Xcode and build.
+- 仅支持真机（PiP 自定义内容不能在模拟器运行）。
+- 需授予 **始终允许** 的定位权限：通过持续位置更新实现后台保活，使速率轮询不被系统挂起。不采集、不上传任何位置数据。

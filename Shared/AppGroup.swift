@@ -1,13 +1,16 @@
 import Foundation
 
-// 主 App / Widget Extension 共享 UserDefaults. suiteName 必须和两 target entitlements 内
-// com.apple.security.application-groups 完全一致, 否则返回的 UserDefaults 静默无效 (写入不持久, 读出永远默认值).
+// Shared UserDefaults between the host app and the widget extension. The
+// suiteName must match com.apple.security.application-groups in both targets'
+// entitlements exactly; otherwise the returned UserDefaults is silently inert
+// (writes are not persisted, reads always return defaults).
 enum AppGroup {
-  static let identifier = "group.jp.elestyle.NetworkRealtime"
+  static let identifier = "group.jp.elestyle.Speedo"
   static let defaults = UserDefaults(suiteName: identifier)!
 }
 
-// widget 触发 PiP start/stop 时通过此 key 留指令, 主 App didBecomeActive 内消费.
+// Key used by the widget to leave PiP start/stop intent for the host app to
+// consume in didBecomeActive.
 enum PiPPendingAction {
   static let key = "pendingPiPAction"
   static let start = "start"

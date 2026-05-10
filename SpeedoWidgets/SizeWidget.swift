@@ -19,8 +19,11 @@ struct SizeProvider: TimelineProvider {
   }
 }
 
-// systemSmall (2x2). 3 行: row1+row2 6 档罗马 I-VI 网格, row3 是动作按钮 (start / stop / toggle / open).
-// 罗马数字本身有阈值递进语义, 配合按钮文字字号自身渐变 (I 小 VI 大), 双重表达档位.
+// systemSmall (2x2). Three rows: row1 + row2 form a 3x2 grid of the six Roman
+// numeral preset levels (I-VI); row3 holds action buttons (start / stop /
+// toggle / open). Roman numerals already imply ordering, and the per-button
+// font size grows with the level (I smallest, VI largest), reinforcing the
+// "level" affordance visually.
 struct SizeWidgetView: View {
   let entry: SizeEntry
 
@@ -60,10 +63,13 @@ struct SizeWidgetView: View {
     }
   }
 
-  // 第 3 行四个图标按钮: 启动 PiP / 停止 PiP / 在最近两档间 toggle / 打开 App.
-  // 必须每个 Button 用具体 intent 类型 (不能 helper forwarding `some AppIntent`),
-  // 否则 widget runtime 序列化拿到的是 opaque type, perform 不会被 dispatch.
-  // 颜色编码: play 绿 / stop 红 / toggle 橙 / open 中性, 单看色块即可分辨动作.
+  // Four icon buttons on row 3: start PiP / stop PiP / toggle between the two
+  // most recent levels / open the host app.
+  // Each button must be wired to a concrete intent type — forwarding through a
+  // helper that returns `some AppIntent` does not work, because the widget
+  // runtime serializes the opaque type and perform is never dispatched.
+  // Color coding: play = green, stop = red, toggle = orange, open = neutral,
+  // so the action is recognizable at a glance from color alone.
   private var actionRow: some View {
     HStack(spacing: 4) {
       Button(intent: StartPiPIntent()) {
@@ -86,7 +92,9 @@ struct SizeWidgetView: View {
       }
       .buttonStyle(.plain)
     }
-    // 不固定高度: 让 VStack 把三行平分, preset row 不会过胖, action row 不会过瘦.
+    // No fixed height — let the VStack split the available space evenly across
+    // the three rows so the preset rows do not bloat and the action row does
+    // not get squeezed.
   }
 
   private func iconLabel(_ systemImage: String, color: Color) -> some View {
@@ -104,8 +112,8 @@ struct SizeWidget: Widget {
     StaticConfiguration(kind: "SizeWidget", provider: SizeProvider()) { entry in
       SizeWidgetView(entry: entry)
     }
-    .configurationDisplayName("PiP Font")
-    .description("Tap a level to change PiP overlay font size, or open the app")
+    .configurationDisplayName("PiP Level")
+    .description("Tap a level to change the PiP overlay, or open the app")
     .supportedFamilies([.systemSmall])
   }
 }

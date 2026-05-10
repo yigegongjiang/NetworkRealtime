@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		F3B09F762D36A651005671C3 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = F3B09F752D36A651005671C3 /* Logging */; };
 		F3B09F892D36A783005671C3 /* LoggingSyslog in Frameworks */ = {isa = PBXBuildFile; productRef = F3B09F882D36A783005671C3 /* LoggingSyslog */; };
-		F3CAFE0000000000000000B0 /* NetworkRealtimeWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000A1 /* NetworkRealtimeWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F3CAFE0000000000000000B0 /* SpeedoWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000A1 /* SpeedoWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F3CAFE0000000000000000C3 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000C0 /* AppGroup.swift */; };
 		F3CAFE0000000000000000C4 /* SpeedPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000C1 /* SpeedPreset.swift */; };
 		F3CAFE0000000000000000C5 /* CustomSegmentsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CAFE0000000000000000C2 /* CustomSegmentsStore.swift */; };
@@ -26,7 +26,7 @@
 			containerPortal = F3F7907D2D3663D00095CE82 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F3CAFE0000000000000000A0;
-			remoteInfo = NetworkRealtimeWidgets;
+			remoteInfo = SpeedoWidgets;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -37,7 +37,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F3CAFE0000000000000000B0 /* NetworkRealtimeWidgets.appex in Embed Foundation Extensions */,
+				F3CAFE0000000000000000B0 /* SpeedoWidgets.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,48 +45,48 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F3CAFE0000000000000000A1 /* NetworkRealtimeWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NetworkRealtimeWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3CAFE0000000000000000A1 /* SpeedoWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SpeedoWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3CAFE0000000000000000C0 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		F3CAFE0000000000000000C1 /* SpeedPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedPreset.swift; sourceTree = "<group>"; };
 		F3CAFE0000000000000000C2 /* CustomSegmentsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentsStore.swift; sourceTree = "<group>"; };
 		F3CAFE0000000000000000C6 /* AppLaunchIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLaunchIntents.swift; sourceTree = "<group>"; };
-		F3F790852D3663D00095CE82 /* NetworkRealtime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkRealtime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3F790852D3663D00095CE82 /* Speedo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Speedo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3F790A32D3665AA0095CE82 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F3F790A52D3665AA0095CE82 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		F3CAFE0000000000000000A9 /* Exceptions for "NetworkRealtimeWidgets" folder in "NetworkRealtimeWidgets" target */ = {
+		F3CAFE0000000000000000A9 /* Exceptions for "SpeedoWidgets" folder in "SpeedoWidgets" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = F3CAFE0000000000000000A0 /* NetworkRealtimeWidgets */;
+			target = F3CAFE0000000000000000A0 /* SpeedoWidgets */;
 		};
-		F3F790972D3663D10095CE82 /* Exceptions for "NetworkRealtime" folder in "NetworkRealtime" target */ = {
+		F3F790972D3663D10095CE82 /* Exceptions for "Speedo" folder in "Speedo" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = F3F790842D3663D00095CE82 /* NetworkRealtime */;
+			target = F3F790842D3663D00095CE82 /* Speedo */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		F3CAFE0000000000000000A8 /* NetworkRealtimeWidgets */ = {
+		F3CAFE0000000000000000A8 /* SpeedoWidgets */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				F3CAFE0000000000000000A9 /* Exceptions for "NetworkRealtimeWidgets" folder in "NetworkRealtimeWidgets" target */,
+				F3CAFE0000000000000000A9 /* Exceptions for "SpeedoWidgets" folder in "SpeedoWidgets" target */,
 			);
-			path = NetworkRealtimeWidgets;
+			path = SpeedoWidgets;
 			sourceTree = "<group>";
 		};
-		F3F790872D3663D00095CE82 /* NetworkRealtime */ = {
+		F3F790872D3663D00095CE82 /* Speedo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				F3F790972D3663D10095CE82 /* Exceptions for "NetworkRealtime" folder in "NetworkRealtime" target */,
+				F3F790972D3663D10095CE82 /* Exceptions for "Speedo" folder in "Speedo" target */,
 			);
-			path = NetworkRealtime;
+			path = Speedo;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -126,8 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				F3CAFE0000000000000000E0 /* Shared */,
-				F3F790872D3663D00095CE82 /* NetworkRealtime */,
-				F3CAFE0000000000000000A8 /* NetworkRealtimeWidgets */,
+				F3F790872D3663D00095CE82 /* Speedo */,
+				F3CAFE0000000000000000A8 /* SpeedoWidgets */,
 				F3F790A22D3665AA0095CE82 /* Frameworks */,
 				F3F790862D3663D00095CE82 /* Products */,
 			);
@@ -136,8 +136,8 @@
 		F3F790862D3663D00095CE82 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F3F790852D3663D00095CE82 /* NetworkRealtime.app */,
-				F3CAFE0000000000000000A1 /* NetworkRealtimeWidgets.appex */,
+				F3F790852D3663D00095CE82 /* Speedo.app */,
+				F3CAFE0000000000000000A1 /* SpeedoWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,9 +154,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F3CAFE0000000000000000A0 /* NetworkRealtimeWidgets */ = {
+		F3CAFE0000000000000000A0 /* SpeedoWidgets */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F3CAFE0000000000000000A5 /* Build configuration list for PBXNativeTarget "NetworkRealtimeWidgets" */;
+			buildConfigurationList = F3CAFE0000000000000000A5 /* Build configuration list for PBXNativeTarget "SpeedoWidgets" */;
 			buildPhases = (
 				F3CAFE0000000000000000A2 /* Sources */,
 				F3CAFE0000000000000000A3 /* Frameworks */,
@@ -167,18 +167,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				F3CAFE0000000000000000A8 /* NetworkRealtimeWidgets */,
+				F3CAFE0000000000000000A8 /* SpeedoWidgets */,
 			);
-			name = NetworkRealtimeWidgets;
+			name = SpeedoWidgets;
 			packageProductDependencies = (
 			);
-			productName = NetworkRealtimeWidgets;
-			productReference = F3CAFE0000000000000000A1 /* NetworkRealtimeWidgets.appex */;
+			productName = SpeedoWidgets;
+			productReference = F3CAFE0000000000000000A1 /* SpeedoWidgets.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		F3F790842D3663D00095CE82 /* NetworkRealtime */ = {
+		F3F790842D3663D00095CE82 /* Speedo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F3F790982D3663D10095CE82 /* Build configuration list for PBXNativeTarget "NetworkRealtime" */;
+			buildConfigurationList = F3F790982D3663D10095CE82 /* Build configuration list for PBXNativeTarget "Speedo" */;
 			buildPhases = (
 				F3F790812D3663D00095CE82 /* Sources */,
 				F3F790822D3663D00095CE82 /* Frameworks */,
@@ -191,15 +191,15 @@
 				F3CAFE0000000000000000B1 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				F3F790872D3663D00095CE82 /* NetworkRealtime */,
+				F3F790872D3663D00095CE82 /* Speedo */,
 			);
-			name = NetworkRealtime;
+			name = Speedo;
 			packageProductDependencies = (
 				F3B09F752D36A651005671C3 /* Logging */,
 				F3B09F882D36A783005671C3 /* LoggingSyslog */,
 			);
-			productName = NetworkRealtime;
-			productReference = F3F790852D3663D00095CE82 /* NetworkRealtime.app */;
+			productName = Speedo;
+			productReference = F3F790852D3663D00095CE82 /* Speedo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -220,7 +220,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F3F790802D3663D00095CE82 /* Build configuration list for PBXProject "NetworkRealtime" */;
+			buildConfigurationList = F3F790802D3663D00095CE82 /* Build configuration list for PBXProject "Speedo" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -238,8 +238,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F3F790842D3663D00095CE82 /* NetworkRealtime */,
-				F3CAFE0000000000000000A0 /* NetworkRealtimeWidgets */,
+				F3F790842D3663D00095CE82 /* Speedo */,
+				F3CAFE0000000000000000A0 /* SpeedoWidgets */,
 			);
 		};
 /* End PBXProject section */
@@ -289,7 +289,7 @@
 /* Begin PBXTargetDependency section */
 		F3CAFE0000000000000000B1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F3CAFE0000000000000000A0 /* NetworkRealtimeWidgets */;
+			target = F3CAFE0000000000000000A0 /* SpeedoWidgets */;
 			targetProxy = F3CAFE0000000000000000B2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -298,12 +298,12 @@
 		F3CAFE0000000000000000A6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = NetworkRealtimeWidgets/NetworkRealtimeWidgets.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SpeedoWidgets/SpeedoWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZG3FDF8RBQ;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = NetworkRealtimeWidgets/Info.plist;
+				INFOPLIST_FILE = SpeedoWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -311,7 +311,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 0.4.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.NetworkRealtime.Widgets;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.Speedo.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -325,12 +325,12 @@
 		F3CAFE0000000000000000A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = NetworkRealtimeWidgets/NetworkRealtimeWidgets.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SpeedoWidgets/SpeedoWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZG3FDF8RBQ;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = NetworkRealtimeWidgets/Info.plist;
+				INFOPLIST_FILE = SpeedoWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -338,7 +338,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 0.4.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.NetworkRealtime.Widgets;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.Speedo.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -354,12 +354,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = NetworkRealtime/NetworkRealtime.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Speedo/Speedo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZG3FDF8RBQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NetworkRealtime/Info.plist;
+				INFOPLIST_FILE = Speedo/Info.plist;
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "需要访问网络以监控网络速度";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "需要后台定位权限来保持网速监测功能";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要定位权限来监测网速";
@@ -373,7 +373,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.4.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.NetworkRealtime;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.Speedo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -390,12 +390,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = NetworkRealtime/NetworkRealtime.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Speedo/Speedo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZG3FDF8RBQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NetworkRealtime/Info.plist;
+				INFOPLIST_FILE = Speedo/Info.plist;
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "需要访问网络以监控网络速度";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "需要后台定位权限来保持网速监测功能";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要定位权限来监测网速";
@@ -409,7 +409,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.4.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.NetworkRealtime;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.elestyle.Speedo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -543,7 +543,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F3CAFE0000000000000000A5 /* Build configuration list for PBXNativeTarget "NetworkRealtimeWidgets" */ = {
+		F3CAFE0000000000000000A5 /* Build configuration list for PBXNativeTarget "SpeedoWidgets" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F3CAFE0000000000000000A6 /* Debug */,
@@ -552,7 +552,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F3F790802D3663D00095CE82 /* Build configuration list for PBXProject "NetworkRealtime" */ = {
+		F3F790802D3663D00095CE82 /* Build configuration list for PBXProject "Speedo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F3F7909B2D3663D10095CE82 /* Debug */,
@@ -561,7 +561,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F3F790982D3663D10095CE82 /* Build configuration list for PBXNativeTarget "NetworkRealtime" */ = {
+		F3F790982D3663D10095CE82 /* Build configuration list for PBXNativeTarget "Speedo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F3F790992D3663D10095CE82 /* Debug */,

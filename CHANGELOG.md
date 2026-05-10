@@ -6,8 +6,8 @@
 
 ### Added
 
-- 新 Widget Extension `NetworkRealtimeWidgets` (systemSmall 2x2): 6 档字号按钮 (罗马 I-VI) + 4 动作按钮 (Start / Stop PiP, toggle 最近两档, 打开 App)
-- App Group `group.jp.elestyle.NetworkRealtime` 共享 `SpeedPreset` / `CustomSegments` (主 App ↔ Widget)
+- 新 Widget Extension `SpeedoWidgets` (systemSmall 2x2): 6 档字号按钮 (罗马 I-VI) + 4 动作按钮 (Start / Stop PiP, toggle 最近两档, 打开 App)
+- App Group `group.jp.elestyle.Speedo` 共享 `SpeedPreset` / `CustomSegments` (主 App ↔ Widget)
 - `Shared/` 目录承载双 target 共用文件: `AppGroup`, `AppLaunchIntents`, `SpeedPreset`, `CustomSegmentsStore`
 - `SpeedPreset.previous` / `switchTo` / `broadcastChange`: 维护"上一档"快照供 widget toggle, 任意改档统一 reload timeline
 
@@ -19,6 +19,7 @@
 - `applicationDidBecomeActive` 消费 widget 通过 App Group 留下的 PiP 指令 (start / stop), 并把 segment 选中同步到 `current`
 - `SpeedPreset` / `CustomSegmentsStore` 存储后端从 `UserDefaults.standard` 迁到 `AppGroup.defaults`
 - `OpenAppIntent` / `StartPiPIntent` / `StopPiPIntent` 双 target 编译: 主 App 进程也需 AppIntent metadata, 否则 widget tap 拉起主 App 后 perform 不会被 dispatch
+- 项目整体由 `NetworkRealtime` 重命名为 `Speedo` (Xcode project / App target / Widget target / Bundle ID / App Group / 仓库 README)
 
 ## [0.3.0] - 2026-05-10
 

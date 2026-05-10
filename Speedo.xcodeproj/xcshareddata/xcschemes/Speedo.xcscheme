@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F3F790842D3663D00095CE82"
-               BuildableName = "NetworkRealtime.app"
-               BlueprintName = "NetworkRealtime"
-               ReferencedContainer = "container:NetworkRealtime.xcodeproj">
+               BuildableName = "Speedo.app"
+               BlueprintName = "Speedo"
+               ReferencedContainer = "container:Speedo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F3F790842D3663D00095CE82"
-            BuildableName = "NetworkRealtime.app"
-            BlueprintName = "NetworkRealtime"
-            ReferencedContainer = "container:NetworkRealtime.xcodeproj">
+            BuildableName = "Speedo.app"
+            BlueprintName = "Speedo"
+            ReferencedContainer = "container:Speedo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F3F790842D3663D00095CE82"
-            BuildableName = "NetworkRealtime.app"
-            BlueprintName = "NetworkRealtime"
-            ReferencedContainer = "container:NetworkRealtime.xcodeproj">
+            BuildableName = "Speedo.app"
+            BlueprintName = "Speedo"
+            ReferencedContainer = "container:Speedo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

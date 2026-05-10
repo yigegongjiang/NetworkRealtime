@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  NetworkRealtime
+//  Speedo
 //
 //  Created by Hailv on 2025/01/14.
 //
@@ -15,7 +15,8 @@ class ViewController: UIViewController {
   @IBOutlet
   weak var customField: UITextField!
 
-  // segment 在 didBecomeActive 反查 SpeedPreset.current, 让 widget / 控制中心改档后回 App 也能看到.
+  // The segment re-reads SpeedPreset.current in didBecomeActive so changes made
+  // from the widget or Control Center are reflected when the app comes back.
   private var presetControl: UISegmentedControl?
 
   override func viewDidLoad() {
@@ -52,8 +53,10 @@ class ViewController: UIViewController {
     syncPresetSelection()
   }
 
-  // widget / 控制中心改档后回到 App, 让 segment 跟上 current.
-  // segment 不需要触发 valueChanged, 直接改 selectedSegmentIndex 即可 (renderer 已被外部源更新).
+  // Sync the segment to current after a widget/Control Center change while the
+  // app was backgrounded. No need to fire valueChanged — the renderer has
+  // already been updated by the external source; only the visual state needs to
+  // catch up via selectedSegmentIndex.
   private func syncPresetSelection() {
     guard let presetControl else { return }
     if let idx = SpeedPreset.allCases.firstIndex(of: .current) {
@@ -61,8 +64,9 @@ class ViewController: UIViewController {
     }
   }
 
-  // 消费 widget 通过 App Group 留下的 PiP 指令 (start / stop). widget extension 进程
-  // 不能直接调 PiPSpeedController, 走 openAppWhenRun + 标记 + 主 App 消费这条路.
+  // Consume PiP commands (start / stop) the widget left in App Group storage.
+  // The widget extension process cannot drive PiPSpeedController directly, so
+  // it uses the openAppWhenRun + flag + host-app-consumes pattern instead.
   private func consumePendingPiPAction() {
     guard let action = AppGroup.defaults.string(forKey: PiPPendingAction.key) else { return }
     AppGroup.defaults.removeObject(forKey: PiPPendingAction.key)
@@ -110,10 +114,10 @@ class ViewController: UIViewController {
 
     let presetControl = makePresetControl()
     self.presetControl = presetControl
-    let sizeRow = UIStackView(arrangedSubviews: [makeSectionLabel("size"), presetControl])
-    sizeRow.axis = .horizontal
-    sizeRow.spacing = 12
-    sizeRow.alignment = .center
+    let levelRow = UIStackView(arrangedSubviews: [makeSectionLabel("level"), presetControl])
+    levelRow.axis = .horizontal
+    levelRow.spacing = 12
+    levelRow.alignment = .center
 
     let startButton = makePiPButton(title: "Start PiP", action: #selector(startPiP))
     let stopButton = makePiPButton(title: "Stop PiP", action: #selector(stopPiP))
@@ -122,8 +126,9 @@ class ViewController: UIViewController {
     buttonRow.spacing = 16
     buttonRow.distribution = .fillEqually
 
-    // 控件整体上下居中, 顶部 / 底部都自适应留白; 自上而下: 网速 -> 输入框 -> 字号 -> Start/Stop.
-    let mainStack = UIStackView(arrangedSubviews: [shows, customRow, sizeRow, buttonRow])
+    // Vertically centered with adaptive top/bottom padding. Order, top to
+    // bottom: speed readout -> custom text field -> level row -> Start/Stop.
+    let mainStack = UIStackView(arrangedSubviews: [shows, customRow, levelRow, buttonRow])
     mainStack.axis = .vertical
     mainStack.spacing = 16
     mainStack.alignment = .fill
@@ -147,7 +152,8 @@ class ViewController: UIViewController {
   }
 
   private func makePresetControl() -> UISegmentedControl {
-    // 罗马 I..VI, 与桌面 widget 视觉保持一致, 不暴露 fontSize 物理值 (4..9).
+    // Roman numerals I..VI, matching the Home Screen widget. The underlying
+    // fontSize values (4..9) are intentionally hidden from the UI.
     let titles = SpeedPreset.allCases.map { $0.displayLabel }
     let control = UISegmentedControl(items: titles)
     control.selectedSegmentIndex = SpeedPreset.allCases.firstIndex(of: .current) ?? 0

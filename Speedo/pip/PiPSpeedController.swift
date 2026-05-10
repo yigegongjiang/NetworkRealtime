@@ -2,9 +2,10 @@ import UIKit
 import AVKit
 import AVFoundation
 
-// 网速 PiP 浮窗的对外入口. 单例, 由 ViewController.attach 挂载,
-// 由 NetworkSpeedMonitor 回调驱动 update(uText:dText:).
-// 浮窗大小不取决于 displayLayer 在主视图里的 frame, 而是 sampleBuffer 比例 (由 SpeedPreset 决定).
+// Public entry point for the PiP overlay. Singleton mounted by ViewController.attach,
+// driven by NetworkSpeedMonitor callbacks via update(uText:dText:).
+// The overlay size is determined by the sampleBuffer aspect ratio (from SpeedPreset),
+// not by the displayLayer's frame in the host view.
 final class PiPSpeedController: NSObject {
   static let shared = PiPSpeedController()
 
@@ -14,7 +15,8 @@ final class PiPSpeedController: NSObject {
   private var possibleObservation: NSKeyValueObservation?
   private var statusObservation: NSKeyValueObservation?
 
-  // 缓存最近一次文本; 自愈时 (flush 后) 用它重推一帧, 否则浮窗仍是空的.
+  // Cache of the most recent text; used to re-enqueue a frame after self-recovery
+  // (post flush), otherwise the overlay would stay blank.
   private var lastUText = "0b"
   private var lastDText = "0b"
 
@@ -23,8 +25,10 @@ final class PiPSpeedController: NSObject {
   func attach(to view: UIView) {
     guard controller == nil else { return }
 
-    // 主 App 内占位用; PiP 浮窗大小与此无关 (取决于 sampleBuffer 比例).
-    // 放屏幕左上角小方块, 满足 PiP 启动需 layer 在视图树且 bounds 非零的条件, 不挡 UI.
+    // Placeholder geometry inside the host app; unrelated to the PiP overlay size,
+    // which is governed by the sampleBuffer aspect ratio. A tiny square in the
+    // top-left corner satisfies PiP's requirement that the layer be in the view
+    // tree with non-zero bounds, without obscuring the UI.
     displayLayer.frame = CGRect(x: 8, y: 60, width: 10, height: 10)
     displayLayer.videoGravity = .resizeAspect
     displayLayer.backgroundColor = UIColor.black.cgColor
@@ -40,7 +44,8 @@ final class PiPSpeedController: NSObject {
 
     installRecoveryHooks()
 
-    // PiP 启动前需 layer 已有帧, 否则 isPictureInPicturePossible 一直为 false.
+    // PiP requires at least one enqueued frame before isPictureInPicturePossible
+    // can flip to true.
     update(uText: "0b", dText: "0b")
   }
 
@@ -50,7 +55,8 @@ final class PiPSpeedController: NSObject {
       controller.startPictureInPicture()
       return
     }
-    // isPictureInPicturePossible 在 layer ready 后才置 true; KVO 等到位再启动.
+    // isPictureInPicturePossible flips to true only after the layer is ready;
+    // observe via KVO and start once it does.
     possibleObservation = controller.observe(
       \.isPictureInPicturePossible,
       options: [.new]
@@ -69,27 +75,32 @@ final class PiPSpeedController: NSObject {
   func update(uText: String, dText: String) {
     lastUText = uText
     lastDText = dText
-    // Widget / 控制中心 跨进程改 SpeedPreset.current 后, 主 App 内 renderer.preset 还是旧值;
-    // 每秒回调时比对一次, 不一致即同步, 实现自然 reflow, 无需 Darwin notification.
+    // When the widget or Control Center mutates SpeedPreset.current from another
+    // process, renderer.preset in the host app stays stale. Reconcile on every
+    // 1 Hz callback so the overlay reflows naturally — no Darwin notification needed.
     let cur = SpeedPreset.current
     if renderer.preset != cur { renderer.preset = cur }
     let segments = ["↑\(uText)", "↓\(dText)"] + CustomSegmentsStore.shared.segments
     guard let buffer = renderer.render(segments: segments) else { return }
-    // 锁屏 / GPU 资源回收会让 layer 进 .failed, 后续 enqueue 全部静默丢弃;
-    // 必须先 flush 才能继续 enqueue (参见 WebKit Bug 181623 同模式).
+    // Lock screen or GPU resource reclaim drives the layer into .failed, after
+    // which every enqueue is silently dropped. A flush is required before
+    // enqueuing can resume (same pattern as WebKit Bug 181623).
     if displayLayer.status == .failed {
       displayLayer.flush()
     }
     displayLayer.enqueue(buffer)
   }
 
-  // 自定义文字变更后用 last 网速重推一帧, 不等下一秒回调.
+  // Re-enqueue a frame using the last known speeds — used after custom text
+  // edits, instead of waiting for the next 1 Hz callback.
   func refresh() {
     update(uText: lastUText, dText: lastDText)
   }
 
-  // 切换字号: 持久化 + 改 renderer + 立即推一帧让浮窗按新比例 reflow.
-  // switchTo 在写 current 前把旧 current 存到 previous, 控制中心 toggle 才有"上一档"可切回.
+  // Change the display level: persist, update the renderer, and push a frame
+  // so the overlay reflows to the new aspect ratio immediately. switchTo
+  // snapshots the outgoing current into previous, enabling Control Center
+  // "toggle back".
   func setPreset(_ preset: SpeedPreset) {
     SpeedPreset.switchTo(preset)
     renderer.preset = preset
@@ -98,10 +109,10 @@ final class PiPSpeedController: NSObject {
 
   // MARK: - Recovery
 
-  // 三处恢复入口都汇入 recoverIfNeeded:
-  // 1. KVO status -> .failed (主路径, 系统状态变更立即触发)
-  // 2. failedToDecodeNotification (decode 链路次级通道)
-  // 3. UIApplication.didBecomeActive (主动兜底, 即便前两者未触发也能恢复)
+  // Three recovery entry points all funnel into recoverIfNeeded:
+  // 1. KVO status -> .failed (primary path, fires on system state change)
+  // 2. failedToDecodeNotification (secondary channel via the decode pipeline)
+  // 3. UIApplication.didBecomeActive (safety net when neither above fires)
   private func installRecoveryHooks() {
     statusObservation = displayLayer.observe(
       \.status,
@@ -133,8 +144,9 @@ final class PiPSpeedController: NSObject {
     recoverIfNeeded(reason: "did-become-active")
   }
 
-  // 唯一恢复路径: 仅在 status == .failed 时介入, 复用 update() 内的 flush + enqueue 逻辑,
-  // 避免重复实现. 强制 main 线程, 因 KVO/通知回调线程不确定.
+  // The single recovery path. Acts only when status == .failed and reuses the
+  // flush + enqueue logic in update() to avoid duplication. Hops to the main
+  // thread because KVO and notification callbacks have undefined thread affinity.
   private func recoverIfNeeded(reason: String) {
     DispatchQueue.main.async { [weak self] in
       guard let self else { return }

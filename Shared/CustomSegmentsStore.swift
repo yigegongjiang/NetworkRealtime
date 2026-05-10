@@ -1,6 +1,8 @@
 import Foundation
 
-// PiP 浮窗用户自定义文字片段. 单例, UserDefaults 存原始字符串, segments 按 [,，] 切分.
+// User-defined text segments for the PiP overlay. Singleton-backed by
+// UserDefaults; the raw string is split into segments on commas (both ASCII
+// `,` and full-width `，`).
 final class CustomSegmentsStore {
   static let shared = CustomSegmentsStore()
   private static let storageKey = "PiPCustomSegments"

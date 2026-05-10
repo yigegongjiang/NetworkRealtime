@@ -2,7 +2,9 @@ import Foundation
 import CoreGraphics
 import WidgetKit
 
-// PiP 浮窗字号档位. 每档预设了对应的 sampleBuffer 宽高比 (越小字号越扁的比例 → 浮窗高度越小).
+// Font-size levels for the PiP overlay. Each level pairs with a fixed
+// sampleBuffer aspect ratio — smaller fonts use a flatter ratio, yielding a
+// shorter overlay.
 enum SpeedPreset: Int, CaseIterable {
   case s4 = 4
   case s5 = 5
@@ -13,8 +15,10 @@ enum SpeedPreset: Int, CaseIterable {
 
   var fontSize: CGFloat { CGFloat(rawValue) }
 
-  // App 首页 segment / 桌面 widget / 控制中心通用展示. 阿拉伯 4-9 让人摸不着含义,
-  // 统一用罗马 I-VI 直观传达"档位"语义, 三处视觉一致.
+  // Shared label for the in-app segment, Home Screen widget, and Control
+  // Center. Arabic 4-9 carries no intuitive ordering for the user; Roman
+  // numerals I-VI clearly convey "level" semantics and keep all three surfaces
+  // visually consistent.
   var displayLabel: String {
     switch self {
     case .s4: return "I"
@@ -52,7 +56,9 @@ enum SpeedPreset: Int, CaseIterable {
     }
   }
 
-  // 上一次 current 的快照. 控制中心 toggle 用它做"切回去". current==new 时不更新, 避免连点同档把 previous 也覆盖成自己.
+  // Snapshot of the previous current value, used by Control Center "toggle
+  // back". Skipping the write when current == new prevents repeated taps on
+  // the same level from collapsing previous onto itself.
   static var previous: SpeedPreset {
     get {
       let raw = AppGroup.defaults.integer(forKey: previousKey)
@@ -63,8 +69,9 @@ enum SpeedPreset: Int, CaseIterable {
     }
   }
 
-  // 任何主动切档都走这里, 维护 previous → current 单向迁移.
-  // PiPSpeedController.update 内的同步轮询不算切换源, 不调这里.
+  // Single funnel for every explicit preset change; maintains the
+  // previous → current single-direction handoff. The 1 Hz reconciliation in
+  // PiPSpeedController.update is not a "switch" and must not call this.
   static func switchTo(_ new: SpeedPreset) {
     let cur = current
     guard cur != new else { return }
@@ -73,10 +80,12 @@ enum SpeedPreset: Int, CaseIterable {
     broadcastChange()
   }
 
-  // 改档入口 (App segment / 桌面 widget 按钮 / widget toggle) 共用一份 reload 调用,
-  // 主 App 进程 / widget extension 进程都生效, 不再让 caller 各自补写.
-  // App 内 segment 的回写交给 ViewController.applicationDidBecomeActive 重读 current,
-  // 实时 Darwin notification 在 PiP 已经轮询同步的前提下不划算.
+  // Centralized reload for every preset-change entry point (in-app segment,
+  // Home Screen widget buttons, widget toggle). Works in both the host app
+  // and the widget extension processes, so callers no longer reimplement it.
+  // The in-app segment is reconciled instead by ViewController.applicationDidBecomeActive
+  // re-reading current; a real-time Darwin notification would be redundant
+  // given that the PiP path already reconciles on its 1 Hz tick.
   static func broadcastChange() {
     WidgetCenter.shared.reloadAllTimelines()
   }

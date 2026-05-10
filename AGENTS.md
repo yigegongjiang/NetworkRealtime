@@ -29,7 +29,7 @@ getifaddrs (系统调用)
 
 ### Target
 
-只有 `NetworkRealtime` 一个 App target（UIKit，`@main AppDelegate`）。
+只有 `Speedo` 一个 App target（UIKit，`@main AppDelegate`）。
 
 ### 依赖（SPM）
 

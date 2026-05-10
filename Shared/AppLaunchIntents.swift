@@ -1,14 +1,19 @@
 import AppIntents
 
-// 这三个 intent 都靠 openAppWhenRun = true 拉起主 App 才能完成职责.
-// 必须在主 App target 也编译, 否则系统拉起主 App 后在 AppIntent metadata 里找不到对应类型,
-// perform 不会被 dispatch (这就是 widget tap 三按钮全无反应的根因).
+// These three intents rely on openAppWhenRun = true to launch the host app
+// before they can complete their work. They must also be compiled into the
+// host app target — otherwise, after the system brings the host app to the
+// foreground, the AppIntent metadata bundle there does not contain the type
+// and perform is never dispatched, leaving widget taps with no effect.
 //
-// 为啥不放在 widget target: widget extension 的 AppIntent metadata 在 widget 进程注册,
-// 主 App 进程不读它. 共享文件双 target 编译后, 主 App bundle 也含 metadata, 系统才能在主 App 内 dispatch.
+// Why not keep them only in the widget target: the widget extension's
+// AppIntent metadata is registered in the widget process and is not read by
+// the host app. Compiling these files into both targets ensures the host
+// app's bundle also carries the metadata, so the system can dispatch perform
+// in the host app process.
 
 struct OpenAppIntent: AppIntent {
-  static let title: LocalizedStringResource = "Open NetworkRealtime"
+  static let title: LocalizedStringResource = "Open Speedo"
   static let openAppWhenRun: Bool = true
 
   init() {}

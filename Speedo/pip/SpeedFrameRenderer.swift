@@ -2,9 +2,12 @@ import UIKit
 import AVFoundation
 import CoreImage
 
-// 把若干文字片段渲染成单帧 CMSampleBuffer, 供 AVSampleBufferDisplayLayer 消费.
-// 调用方 (PiPSpeedController) 负责拼装 segments (网速 + 用户自定义), 此处不关心来源.
-// frameSize / fontSize 由 preset 决定; 切换 preset 后下一帧 enqueue 时浮窗自动按新比例 reflow.
+// Renders an array of text segments into a single CMSampleBuffer for an
+// AVSampleBufferDisplayLayer to consume. The caller (PiPSpeedController)
+// assembles segments (network speeds plus user-defined text); this class is
+// agnostic to their source. frameSize and fontSize are derived from preset;
+// switching presets causes the next enqueued frame to reflow the overlay to
+// the new aspect ratio automatically.
 final class SpeedFrameRenderer {
   var preset: SpeedPreset
   private let ciContext = CIContext()
@@ -23,7 +26,7 @@ final class SpeedFrameRenderer {
 
   private func drawImage(segments: [String]) -> UIImage {
     let frameSize = preset.frameSize
-    // PiP sampleBuffer 必须不透明; 显式禁 alpha 并填黑底.
+    // PiP sampleBuffers must be opaque; disable alpha explicitly and fill black.
     let format = UIGraphicsImageRendererFormat()
     format.opaque = true
     let renderer = UIGraphicsImageRenderer(size: frameSize, format: format)
@@ -52,7 +55,8 @@ final class SpeedFrameRenderer {
 
   private func makeSampleBuffer(from cgImage: CGImage) -> CMSampleBuffer? {
     var pixelBuffer: CVPixelBuffer?
-    // IOSurface backing 是 AVSampleBufferDisplayLayer 渲染的前提; 缺它 enqueue 静默失败.
+    // IOSurface backing is required by AVSampleBufferDisplayLayer; without it
+    // every enqueue fails silently.
     let attrs: [String: Any] = [
       kCVPixelBufferCGImageCompatibilityKey as String: true,
       kCVPixelBufferCGBitmapContextCompatibilityKey as String: true,
