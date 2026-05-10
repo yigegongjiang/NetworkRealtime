@@ -9,15 +9,16 @@ import UIKit
 import Logging
 
 class ViewController: UIViewController {
-  private let speedLabelInset: CGFloat = 24
-
   @IBOutlet
   weak var shows: UILabel!
 
+  @IBOutlet
+  weak var customField: UITextField!
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    configureSpeedLabel()
-    configurePiPControls()
+    configureLayout()
+    configureCustomField()
 
     PiPSpeedController.shared.attach(to: view)
 
@@ -27,6 +28,19 @@ class ViewController: UIViewController {
       name: UIApplication.didBecomeActiveNotification,
       object: nil
     )
+  }
+
+  private func configureCustomField() {
+    customField.text = CustomSegmentsStore.shared.raw
+
+    let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+    tap.cancelsTouchesInView = false
+    view.addGestureRecognizer(tap)
+  }
+
+  @IBAction private func customFieldChanged(_ sender: UITextField) {
+    CustomSegmentsStore.shared.raw = sender.text ?? ""
+    PiPSpeedController.shared.refresh()
   }
 
   @objc func applicationDidBecomeActive() {
@@ -56,46 +70,50 @@ class ViewController: UIViewController {
     PiPSpeedController.shared.setPreset(preset)
   }
 
-  private func configureSpeedLabel() {
+  private func configureLayout() {
     shows.font = UIFont.monospacedSystemFont(ofSize: 28, weight: .regular)
     shows.textAlignment = .left
 
-    NSLayoutConstraint.activate([
-      shows.leadingAnchor.constraint(
-        equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-        constant: speedLabelInset
-      ),
-      shows.trailingAnchor.constraint(
-        equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-        constant: -speedLabelInset
-      )
-    ])
-  }
+    let customRow = UIStackView(arrangedSubviews: [makeSectionLabel("custom"), customField])
+    customRow.axis = .horizontal
+    customRow.spacing = 12
+    customRow.alignment = .center
 
-  private func configurePiPControls() {
+    let presetControl = makePresetControl()
+    let sizeRow = UIStackView(arrangedSubviews: [makeSectionLabel("size"), presetControl])
+    sizeRow.axis = .horizontal
+    sizeRow.spacing = 12
+    sizeRow.alignment = .center
+
     let startButton = makePiPButton(title: "Start PiP", action: #selector(startPiP))
     let stopButton = makePiPButton(title: "Stop PiP", action: #selector(stopPiP))
     let buttonRow = UIStackView(arrangedSubviews: [startButton, stopButton])
     buttonRow.axis = .horizontal
     buttonRow.spacing = 16
+    buttonRow.distribution = .fillEqually
 
-    let presetControl = makePresetControl()
-
-    let stack = UIStackView(arrangedSubviews: [presetControl, buttonRow])
-    stack.axis = .vertical
-    stack.spacing = 16
-    stack.alignment = .center
-    stack.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(stack)
+    // 全部控件聚拢底部, 顶部自适应留白; 自上而下: 网速 -> 输入框 -> 字号 -> Start/Stop.
+    let mainStack = UIStackView(arrangedSubviews: [shows, customRow, sizeRow, buttonRow])
+    mainStack.axis = .vertical
+    mainStack.spacing = 16
+    mainStack.alignment = .fill
+    mainStack.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(mainStack)
 
     NSLayoutConstraint.activate([
-      stack.bottomAnchor.constraint(
-        equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-        constant: -speedLabelInset
-      ),
-      stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      presetControl.widthAnchor.constraint(greaterThanOrEqualToConstant: 320)
+      mainStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24),
+      mainStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+      mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24)
     ])
+  }
+
+  private func makeSectionLabel(_ text: String) -> UILabel {
+    let label = UILabel()
+    label.text = text
+    label.font = .monospacedSystemFont(ofSize: 17, weight: .regular)
+    label.textColor = .secondaryLabel
+    label.widthAnchor.constraint(equalToConstant: 80).isActive = true
+    return label
   }
 
   private func makePresetControl() -> UISegmentedControl {

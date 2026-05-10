@@ -2,7 +2,8 @@ import UIKit
 import AVFoundation
 import CoreImage
 
-// 把网速文本 (uText, dText) 渲染成单帧 CMSampleBuffer, 供 AVSampleBufferDisplayLayer 消费.
+// 把若干文字片段渲染成单帧 CMSampleBuffer, 供 AVSampleBufferDisplayLayer 消费.
+// 调用方 (PiPSpeedController) 负责拼装 segments (网速 + 用户自定义), 此处不关心来源.
 // frameSize / fontSize 由 preset 决定; 切换 preset 后下一帧 enqueue 时浮窗自动按新比例 reflow.
 final class SpeedFrameRenderer {
   var preset: SpeedPreset
@@ -13,14 +14,14 @@ final class SpeedFrameRenderer {
     self.preset = preset
   }
 
-  func render(uText: String, dText: String) -> CMSampleBuffer? {
+  func render(segments: [String]) -> CMSampleBuffer? {
     counter += 1
-    let image = drawImage(uText: uText, dText: dText)
+    let image = drawImage(segments: segments)
     guard let cgImage = image.cgImage else { return nil }
     return makeSampleBuffer(from: cgImage)
   }
 
-  private func drawImage(uText: String, dText: String) -> UIImage {
+  private func drawImage(segments: [String]) -> UIImage {
     let frameSize = preset.frameSize
     // PiP sampleBuffer 必须不透明; 显式禁 alpha 并填黑底.
     let format = UIGraphicsImageRendererFormat()
@@ -30,13 +31,15 @@ final class SpeedFrameRenderer {
       UIColor.black.setFill()
       ctx.fill(CGRect(origin: .zero, size: frameSize))
 
+      guard !segments.isEmpty else { return }
+
       let font = UIFont.monospacedDigitSystemFont(ofSize: preset.fontSize, weight: .medium)
       let attrs: [NSAttributedString.Key: Any] = [
         .font: font,
         .foregroundColor: UIColor.white
       ]
       let attrText = NSAttributedString(
-        string: "↑\(uText)  ↓\(dText)",
+        string: segments.joined(separator: "  "),
         attributes: attrs
       )
       let textSize = attrText.size()

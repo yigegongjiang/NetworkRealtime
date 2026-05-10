@@ -69,7 +69,8 @@ final class PiPSpeedController: NSObject {
   func update(uText: String, dText: String) {
     lastUText = uText
     lastDText = dText
-    guard let buffer = renderer.render(uText: uText, dText: dText) else { return }
+    let segments = ["↑\(uText)", "↓\(dText)"] + CustomSegmentsStore.shared.segments
+    guard let buffer = renderer.render(segments: segments) else { return }
     // 锁屏 / GPU 资源回收会让 layer 进 .failed, 后续 enqueue 全部静默丢弃;
     // 必须先 flush 才能继续 enqueue (参见 WebKit Bug 181623 同模式).
     if displayLayer.status == .failed {
@@ -78,11 +79,16 @@ final class PiPSpeedController: NSObject {
     displayLayer.enqueue(buffer)
   }
 
+  // 自定义文字变更后用 last 网速重推一帧, 不等下一秒回调.
+  func refresh() {
+    update(uText: lastUText, dText: lastDText)
+  }
+
   // 切换字号: 持久化 + 改 renderer + 立即推一帧让浮窗按新比例 reflow.
   func setPreset(_ preset: SpeedPreset) {
     SpeedPreset.current = preset
     renderer.preset = preset
-    update(uText: "0b", dText: "0b")
+    refresh()
   }
 
   // MARK: - Recovery
